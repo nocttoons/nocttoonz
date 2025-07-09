@@ -1,0 +1,55 @@
+-- Painel básico Roblox GUI (KalelHub UI)
+
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Criar a ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "KalelHubUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+-- Criar o frame principal
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 400)
+frame.Position = UDim2.new(0.5, -150, 0.5, -200)
+frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+-- Função para criar botões
+local function createButton(text, callback, yOffset)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1, -20, 0, 40)
+    button.Position = UDim2.new(0, 10, 0, 10 + yOffset)
+    button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Text = text
+    button.Font = Enum.Font.SourceSansBold
+    button.TextSize = 20
+    button.Parent = frame
+
+    button.MouseButton1Click:Connect(callback)
+end
+
+-- Exemplo: adicionar botões e suas funções
+createButton("Ativar Fly", function()
+    print("Fly ativado!")
+    -- coloque aqui a função fly()
+end, 0)
+
+createButton("Ativar Noclip", function()
+    print("Noclip ativado!")
+    -- coloque aqui a função noclip()
+end, 50)
+
+createButton("Teleporte para Spawn", function()
+    local char = player.Character
+    if char and char:FindFirstChild("HumanoidRootPart") then
+        char.HumanoidRootPart.CFrame = workspace.SpawnLocation.CFrame + Vector3.new(0,5,0)
+    end
+end, 100)
+
+-- Você pode criar mais botões com funções aqui...
+
